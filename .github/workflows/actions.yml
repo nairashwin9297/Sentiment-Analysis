@@ -1,0 +1,28 @@
+name: Simple Variable Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-variable:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Create a variable
+      - name: Set variable
+        run: |
+          echo "MY_VAR=HelloWorld" >> $GITHUB_ENV
+
+      # Step 2: Check the variable value and conditionally run the step
+      - name: Check variable value
+        if: ${{ env.MY_VAR == 'HelloWorld' }}
+        run: |
+          echo "The variable MY_VAR is HelloWorld!"
+
+      # Step 3: Check if the variable is not 'Goodbye'
+      - name: Check if variable is not Goodbye
+        if: ${{ env.MY_VAR != 'Goodbye' }}
+        run: |
+          echo "The variable MY_VAR is NOT Goodbye!"
