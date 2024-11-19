@@ -12,6 +12,7 @@ jobs:
     steps:
       # Step 1: Create a variable
       - name: Set variable
+        id: set_var
         run: |
           echo "MY_VAR=HelloWorld" >> $GITHUB_ENV
 
@@ -19,7 +20,8 @@ jobs:
       - name: Check variable value
         if: ${{ env.MY_VAR == 'HelloWorld' }}
         run: |
-          echo "The variable MY_VAR is HelloWorld!"
+          echo "The variable MY_VAR is ${{env.MY_VAR}}!"
+          echo "${{steps.set_var.outputs.MY_VAR}} second"
 
       # Step 3: Check if the variable is not 'Goodbye'
       - name: Check if variable is not Goodbye
